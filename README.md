@@ -26,4 +26,4 @@ TMB::compile("ode.cpp", paste0("-I", qsystem.file("include/", package = "BH")))
 
 ## Harmonic Oscilator 
 
-![](harm_osc.png)
+![](fig/harm_osc.png)
