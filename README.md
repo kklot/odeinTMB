@@ -23,3 +23,7 @@ Add `BH` headers to the include path, e.g.,
 ```r
 TMB::compile("ode.cpp", paste0("-I", qsystem.file("include/", package = "BH")))
 ```
+
+## Harmonic Oscilator 
+
+![](harm_osc.png)
