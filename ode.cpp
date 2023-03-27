@@ -4,6 +4,17 @@ using namespace boost::numeric::odeint;
 
 typedef std::vector<double> state_type;
 
+template<class T>
+class harm_osc {
+  double m_gam;
+public:
+  harm_osc(vector<T> pars) : m_gam(asDouble(pars(0))) {}
+  void operator()(const state_type &x, state_type &dxdt, const double /* t */) {
+    dxdt[0] = x[1];
+    dxdt[1] = -x[0] - m_gam * x[1];
+  }
+};
+
 template <class T, class M> 
 struct ODE {
   int n_state, n_time;
@@ -40,6 +51,10 @@ Type objective_function<Type>::operator()() {
   Type dll = 0.0;
   DATA_VECTOR(init); // initial conds
   PARAMETER_VECTOR(pars);
+  ODE<Type, harm_osc<Type> > ode(init, pars, 25, 0.1);
+  matrix<double> out = ode.out();
+  REPORT(ode.track);
+  REPORT(out);
   return dll;
 }
 
